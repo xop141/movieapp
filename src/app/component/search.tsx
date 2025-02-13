@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState, useEffect } from 'react';
 import { Search, Star } from "lucide-react";
 import { Input } from '@/components/ui/input';
@@ -8,6 +10,9 @@ import { useRouter } from 'next/navigation';
 import { Skeleton } from '@/components/ui/skeleton';
 
 const SearchButton = () => {
+
+    
+  
   const [searchVALUE, setSearchVALUE] = useState<string>('');
   const [popular, setPopular] = useState<any>([]);
   const [loading, setLoading] = useState(true);
@@ -19,6 +24,8 @@ const SearchButton = () => {
 
   const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
   const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
+
+  console.log(TMDB_BASE_URL)
 
   const getDATA = async () => {
     setLoading(true);
@@ -62,7 +69,7 @@ const SearchButton = () => {
     }
   };
 
-  document.addEventListener('click', clear);
+   document.addEventListener('click', clear);
 
   return (
     <div id="searchbar" className="flex flex-col items-center">
@@ -104,9 +111,10 @@ const SearchButton = () => {
                     key={movie.id}
                     className="mb-2 flex text-white border-b-2 py-[10px] relative"
                     onClick={() => handleMovieClick(movie.id)}
+           
                   >
                     <img
-                      src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                      src={`https://image.tmdb.org/t/p/original${movie.poster_path}`}
                       alt={movie.title}
                       className="w-24 h-36 object-cover rounded-[8px]"
                     />

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 import { useTheme } from "next-themes";
 import Card from "@/app/component/moviecard";
 import Homeskeleton from "./homeskeleton";
@@ -48,10 +48,10 @@ const Popular = () => {
     getDATA();
   }, []);
 
-  //   const router = useRouter();
+    const router = useRouter();
 
   const handleMovieClick = (id: number) => {
-    // router.push(`/detail/${id}`); 
+    router.push(`/detail/${id}`); 
   };
 
   return (
@@ -60,9 +60,9 @@ const Popular = () => {
         <Homeskeleton/>
       ) : (
         <div>
-        <Card pages={pages.slice(0, 10)} handleMovieClick={handleMovieClick} title="Popular" />
-         <Card pages={pages.slice(20,30)} handleMovieClick={handleMovieClick} title="Upcoming"/>
-        <Card pages={pages.slice(40,50)} handleMovieClick={handleMovieClick} title="Top rated"/> 
+        <Card pages={pages.slice(0, 10)}  title="Popular" />
+         <Card pages={pages.slice(20,30)} title="Upcoming"/>
+        <Card pages={pages.slice(40,50)}  title="Top rated"/> 
         </div>
       )}
     </div>

@@ -31,7 +31,8 @@ const Genre = () => {
         }
       );
       setPopular(response.data.genres);
-      console.log(response.data.genres);
+  
+      
     } catch (err) {
       console.log(err);
     }

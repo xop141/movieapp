@@ -4,7 +4,7 @@ import { Film, Mail, Phone } from 'lucide-react';
 const footer = () => {
   return (
   
-    <div className="w-full h-fit px-5 py-10 text-white bg-gray-900">
+    <div className="w-full h-fit px-5 py-10 bg-gray-900">
       <div className="flex flex-col gap-7 lg:flex-row w-full justify-between">
        
         <div className="flex flex-col gap-3 p-4 rounded-lg">

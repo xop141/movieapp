@@ -42,7 +42,7 @@ const Header = () => {
 
 
   return (
-   <div className="relative">
+   <div className="relative bg-gray-900">
     <div className="w-full h-fit flex justify-between p-[20px] items-center">
       <div className={`absolute w-full top-0 left-0  bg-black h-full flex justify-between items-center ${isBar ? "flex" : "hidden"} `}>
       
@@ -62,7 +62,7 @@ const Header = () => {
 
       </div>
       <div className="flex gap-[8px] text-[16px] font-[700] cursor-pointer" onClick={JumpHOME}><Film /> Movie z</div>
-      <div className="hidden lg:flex ">
+      <div className={'hidden lg:flex border'}>
         <SearchButton />
       </div>
 
@@ -71,14 +71,14 @@ const Header = () => {
 
 
         <div
-          className="w-fit p-3 border border-gray-300 shadow-sm rounded-md cursor-pointer lg:hidden"
+          className={`w-fit p-3 border ${theme === "dark" ? "border-white" : "border-black"} shadow-sm rounded-md cursor-pointer lg:hidden`}
           onClick={toggleBar}
         >
           <Search />
         </div>
 
         <div
-          className="w-fit p-3 border border-gray-300 shadow-sm rounded-md cursor-pointer"
+          className={`w-fit p-3 border border-gray-300 shadow-sm rounded-md cursor-pointer ${theme === "dark" ? "border-white" : "border-black"}`}
           onClick={toggleTheme}
         >
           {theme === "dark" ? <Sun /> : <Moon />}
