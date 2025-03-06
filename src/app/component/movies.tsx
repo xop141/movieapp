@@ -1,27 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import { useTheme } from "next-themes";
 import Card from "@/app/component/moviecard";
 import Homeskeleton from "./homeskeleton";
 
+// Define Movie Type
+interface Movie {
+  id: number;
+  poster_path: string;
+  title: string;
+  vote_average: number;
+}
 
+// Component
 const Popular = () => {
-  const url = "https://image.tmdb.org/t/p/w500";
   const TMDB_BASE_URL = process.env.TMDB_BASE_URL;
   const TMDB_API_TOKEN = process.env.TMDB_API_TOKEN;
-  const { setTheme, theme } = useTheme();
-  const [pages, setPages] = useState<any>([]);
-  const [loading, setLoading] = useState(true)
-
-  const getDATA = async () => {
-    const test = ["popular", "upcoming", "top_rated"];
-    setLoading(true)
-
-
+  
+  const [pages, setPages] = useState<Movie[]>([]);
+  const [loading, setLoading] = useState(true);
+  
+  const getDATA = useCallback(async () => {
+    const categories = ["popular", "upcoming", "top_rated"];
+    setLoading(true);
+    
     try {
       const responses = await Promise.all(
-        test.map(async (category) => {
+        categories.map(async (category) => {
           const response = await axios.get(
             `${TMDB_BASE_URL}/movie/${category}?language=en-US&page=1`,
             {
@@ -34,35 +39,28 @@ const Popular = () => {
         })
       );
 
-      const allResults = [].concat(...responses);
-      setPages(allResults);
-      console.log(allResults);
+      setPages(responses.flat()); // Flatten nested arrays
+      console.log(responses.flat());
     } catch (err) {
       console.error(err);
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  };
+  }, [TMDB_BASE_URL, TMDB_API_TOKEN]); // Add dependencies
 
   useEffect(() => {
     getDATA();
-  }, []);
-
-    const router = useRouter();
-
-  const handleMovieClick = (id: number) => {
-    router.push(`/detail/${id}`); 
-  };
+  }, [getDATA]);
 
   return (
     <div>
       {loading ? (
-        <Homeskeleton/>
+        <Homeskeleton />
       ) : (
         <div>
-        <Card pages={pages.slice(0, 10)}  title="Popular" />
-         <Card pages={pages.slice(20,30)} title="Upcoming"/>
-        <Card pages={pages.slice(40,50)}  title="Top rated"/> 
+          <Card pages={pages.slice(0, 10)} title="Popular" />
+          <Card pages={pages.slice(20, 30)} title="Upcoming" />
+          <Card pages={pages.slice(40, 50)} title="Top Rated" />
         </div>
       )}
     </div>
