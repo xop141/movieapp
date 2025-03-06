@@ -1,11 +1,11 @@
 "use client";
 import React, { useState } from "react";
-import { Film, Moon, Sun, ChevronDown, Search, X } from "lucide-react";
+import { Film, Moon, Sun, Search, X } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useRouter } from "next/navigation";
-import { Input } from "@/components/ui/input"
+
 import SearchButton from "./search";
-import { Badge } from "@/components/ui/badge";
+
 import Allgenre from "@/app/component/allgenre"
 
 
